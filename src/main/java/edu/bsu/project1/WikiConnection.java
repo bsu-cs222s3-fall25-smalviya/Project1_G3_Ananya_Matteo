@@ -1,12 +1,13 @@
 package edu.bsu.project1;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
+// Pulls wikipedia article
 public class WikiConnection {
     public static String fetchArticle(String title) throws Exception {
         String encodedUrlString = "https://en.wikipedia.org/w/api.php?action=query&format=json&prop=revisions&titles=" +
@@ -24,9 +25,7 @@ public class WikiConnection {
     }
 
     private static String readJsonAsStringFrom(URLConnection connection) throws IOException {
-        try (InputStream in = connection.getInputStream()) {
-            return new String(in.readAllBytes(), StandardCharsets.UTF_8);
-        }
+        return new String(connection.getInputStream().readAllBytes(), Charset.defaultCharset());
     }
 
     private static void printRawJson(String jsonData) {

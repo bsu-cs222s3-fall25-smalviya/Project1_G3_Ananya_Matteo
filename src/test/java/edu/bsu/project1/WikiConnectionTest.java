@@ -3,7 +3,7 @@ package edu.bsu.project1;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
-
+// Tests multiple inputs
 public class WikiConnectionTest {
     @Test
     public void testiphoneArticle() throws Exception {
