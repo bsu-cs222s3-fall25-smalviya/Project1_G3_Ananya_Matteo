@@ -25,13 +25,13 @@ public class WikiConnection {
         return jsonData;
     }
 
-    private static void printRawJson(String jsonData) {
-        System.out.println(jsonData);
-    }
-
     private static String readJsonAsStringFrom(URLConnection connection) throws IOException {
         try (InputStream in = connection.getInputStream()) {
             return new String(in.readAllBytes(), StandardCharsets.UTF_8);
         }
+    }
+
+    private static void printRawJson(String jsonData) {
+        System.out.println(jsonData);
     }
 }
