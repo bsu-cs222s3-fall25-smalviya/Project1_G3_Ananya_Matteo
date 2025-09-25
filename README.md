@@ -1,6 +1,5 @@
 # Project1_G3
 
-## Project Summary
 This project is a simple command-line Java application that connects to the Wikipedia API and retrieves the most recent revisions for a given article.  
 It demonstrates how to:
 - Connect to an external web API
