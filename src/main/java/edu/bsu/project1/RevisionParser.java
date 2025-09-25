@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 public class RevisionParser {
-
+// turns the revision entries into a list of revision objects. Each hols a username and a timestamp.
     public List<Revision> parse(InputStream input) throws Exception {
         String json = new String(input.readAllBytes(), StandardCharsets.UTF_8);
         ReadContext ctx = JsonPath.parse(json);

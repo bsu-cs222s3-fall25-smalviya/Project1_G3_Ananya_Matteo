@@ -6,7 +6,7 @@ import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 
 public class WikipediaFetcher {
-
+// this is what takes the Wiki API for the last 15 revisions.
     public InputStream fetch(String article) throws Exception {
         String base = "https://en.wikipedia.org/w/api.php?action=query&format=json&prop=revisions&titles=";
         String url = base + URLEncoder.encode(article, StandardCharsets.UTF_8)

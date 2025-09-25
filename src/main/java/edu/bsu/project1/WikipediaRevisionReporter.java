@@ -2,7 +2,6 @@ package edu.bsu.project1;
 
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.ReadContext;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -11,7 +10,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class WikipediaRevisionReporter {
-
     public static void main(String[] args) {
         String article;
         if (args.length == 0) {
@@ -21,13 +19,11 @@ public class WikipediaRevisionReporter {
         } else {
             article = args[0];
         }
-
         try {
             WikipediaFetcher fetcher = new WikipediaFetcher();
             InputStream jsonStream = fetcher.fetch(article);
 
             byte[] jsonBytes = readAll(jsonStream);
-
 
             if (isMissingPage(jsonBytes)) {
                 String msg = "Error: No Wikipedia page found for '" + article + "'";
@@ -35,7 +31,6 @@ public class WikipediaRevisionReporter {
                 System.out.println(msg);
                 System.exit(1);
             }
-
             RevisionParser parser = new RevisionParser();
             List<Revision> revisions = parser.parse(new ByteArrayInputStream(jsonBytes));
 
@@ -50,7 +45,7 @@ public class WikipediaRevisionReporter {
             System.exit(1);
         }
     }
-
+    // This decides if the page exists or not.
     private static boolean isMissingPage(byte[] jsonBytes) {
         String json = new String(jsonBytes, StandardCharsets.UTF_8);
         ReadContext ctx = JsonPath.parse(json);
@@ -62,7 +57,7 @@ public class WikipediaRevisionReporter {
             return false;
         }
     }
-
+    // takes the InputStream and reads the enitre thing, then gives the complete contents as a byte[]
     private static byte[] readAll(InputStream in) throws Exception {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         in.transferTo(bos);
