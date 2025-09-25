@@ -13,7 +13,7 @@ public class WikipediaTest {
         WikipediaFetcher fetcher = new WikipediaFetcher();
         RevisionParser parser = new RevisionParser();
 
-        String[] articles = {"Einstein", "Trump", "Frank Zappa"};
+        String[] articles = {"Einstein", "Ball State", "Frank Zappa"};
 
         for (String article : articles) {
             InputStream json = fetcher.fetch(article);
