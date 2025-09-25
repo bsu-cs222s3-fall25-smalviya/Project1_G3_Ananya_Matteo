@@ -1,20 +1,20 @@
 package edu.bsu.project1;
 
-//should be final
+
 public class Revision {
-    private String timestampUtc;
-    private String username;
+    private final String user;
+    private final String timestamp;
 
-    public Revision(String timestampUtc, String username) {
-        this.timestampUtc = timestampUtc;
-        this.username = username;
+    public Revision(String user, String timestamp) {
+        this.user = user;
+        this.timestamp = timestamp;
     }
 
-    public String timestampUtc() {
-        return timestampUtc;
+    public String getUser() {
+        return user;
     }
-    public String username() {
-        return username;
+
+    public String getTimestamp() {
+        return timestamp;
     }
 }
-

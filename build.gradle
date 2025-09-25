@@ -1,0 +1,25 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.jayway.jsonpath:json-path:2.9.0'
+    implementation 'net.minidev:json-smart:2.5.0'
+    implementation 'org.ow2.asm:asm:9.5'
+}
+
+application {
+    mainClass = 'edu.bsu.project1.WikipediaRevisionReporter'
+}
+tasks.named('run') {
+    standardInput = System.in
+}
+
+dependencies {
+    implementation 'org.slf4j:slf4j-simple:2.0.13'
+}
