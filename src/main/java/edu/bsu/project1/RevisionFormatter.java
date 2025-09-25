@@ -1,14 +1,12 @@
+// src/main/java/edu/bsu/project1/RevisionFormatter.java
 package edu.bsu.project1;
-
-
 
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
 
 public class RevisionFormatter {
-    public String format(Revision revision, int index) {
-        Instant instant = Instant.parse(revision.getTimestamp());
-        String time = DateTimeFormatter.ISO_INSTANT.format(instant);
-        return index + "  " + time + "  " + revision.getUser();
+    public String format(Revision r, int index) {
+        String utc = DateTimeFormatter.ISO_INSTANT.format(Instant.parse(r.getTimestamp()));
+        return index + "  " + utc + "  " + r.getUsername();
     }
 }

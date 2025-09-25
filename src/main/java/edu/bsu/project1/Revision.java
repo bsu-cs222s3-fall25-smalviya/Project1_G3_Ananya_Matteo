@@ -1,20 +1,15 @@
+// src/main/java/edu/bsu/project1/Revision.java
 package edu.bsu.project1;
 
-
 public class Revision {
-    private final String user;
+    private final String username;
     private final String timestamp;
 
-    public Revision(String user, String timestamp) {
-        this.user = user;
+    public Revision(String username, String timestamp) {
+        this.username = username;
         this.timestamp = timestamp;
     }
 
-    public String getUser() {
-        return user;
-    }
-
-    public String getTimestamp() {
-        return timestamp;
-    }
+    public String getUsername() { return username; }
+    public String getTimestamp() { return timestamp; }
 }

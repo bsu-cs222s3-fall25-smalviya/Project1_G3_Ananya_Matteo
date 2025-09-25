@@ -1,54 +1,74 @@
+// src/main/java/edu/bsu/project1/WikipediaRevisionReporter.java
 package edu.bsu.project1;
 
+import com.jayway.jsonpath.JsonPath;
+import com.jayway.jsonpath.ReadContext;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Scanner;
 
 public class WikipediaRevisionReporter {
+
     public static void main(String[] args) {
         String article;
-
         if (args.length == 0) {
-            Scanner scanner = new Scanner(System.in);
+            Scanner sc = new Scanner(System.in);
             System.out.print("Enter Wikipedia article name: ");
-            if (scanner.hasNextLine()) {
-                article = scanner.nextLine().trim();
-            } else {
-                System.err.println("Error: No article name provided.");
-                System.exit(1);
-                return;
-            }
+            article = sc.nextLine();
         } else {
             article = args[0];
         }
 
         try {
-            WikipediaClient client = new WikipediaClient();
-            String jsonResponse = client.fetchRevisions(article);
+            WikipediaFetcher fetcher = new WikipediaFetcher();
+            InputStream jsonStream = fetcher.fetch(article);
 
-            RevisionParser parser = new RevisionParser();
-            WikipediaResponse response = parser.parse(jsonResponse);
+            // keep a copy of the JSON (so we can check + parse with the same data)
+            byte[] jsonBytes = readAll(jsonStream);
 
-            if (response.getRedirectTarget() != null) {
-                System.out.println("Redirected to " + response.getRedirectTarget());
+            // check if page is missing
+            // when page missing
+            if (isMissingPage(jsonBytes)) {
+                String msg = "Error: No Wikipedia page found for '" + article + "'";
+                System.err.println(msg);  // spec-correct
+                System.out.println(msg);  // makes it visible in Gradle console
+                System.exit(1);
             }
 
-            List<Revision> revisions = response.getRevisions();
-            RevisionFormatter formatter = new RevisionFormatter();
+            RevisionParser parser = new RevisionParser();
+            List<Revision> revisions = parser.parse(new ByteArrayInputStream(jsonBytes));
 
+            RevisionFormatter formatter = new RevisionFormatter();
             for (int i = 0; i < revisions.size(); i++) {
                 System.out.println(formatter.format(revisions.get(i), i + 1));
             }
-
-        } catch (WikipediaClient.PageNotFoundException e) {
-            System.err.println("Error: No Wikipedia page found for '" + article + "'");
-            System.exit(1);
-        } catch (WikipediaClient.NetworkException e) {
-            System.err.println("Error: Network issue occurred.");
-            System.exit(1);
         } catch (Exception e) {
-            System.err.println("Error: Unexpected issue - " + e.getMessage());
-            e.printStackTrace();
+            String msg = "Error: " + e.getMessage();
+            System.err.println(msg);
+            System.out.println(msg);
             System.exit(1);
         }
+    }
+
+    private static boolean isMissingPage(byte[] jsonBytes) {
+        String json = new String(jsonBytes, StandardCharsets.UTF_8);
+        ReadContext ctx = JsonPath.parse(json);
+        try {
+            // if any page object has "missing", the page does not exist
+            List<Object> missing = ctx.read("$.query.pages.*.missing");
+            return !missing.isEmpty();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private static byte[] readAll(InputStream in) throws Exception {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        in.transferTo(bos);
+        return bos.toByteArray();
     }
 }
