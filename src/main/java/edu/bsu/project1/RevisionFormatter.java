@@ -1,4 +1,3 @@
-// src/main/java/edu/bsu/project1/RevisionFormatter.java
 package edu.bsu.project1;
 
 import java.time.Instant;

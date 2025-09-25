@@ -1,11 +1,9 @@
-// src/test/java/edu/bsu/project1/WikipediaTest.java
 package edu.bsu.project1;
 
 import org.junit.jupiter.api.Test;
 
 import java.io.InputStream;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class WikipediaTest {
@@ -20,8 +18,6 @@ public class WikipediaTest {
         for (String article : articles) {
             InputStream json = fetcher.fetch(article);
             List<Revision> revisions = parser.parse(json);
-
-            // just make sure we got something back
             assertFalse(revisions.isEmpty(), article + " should return revisions");
         }
     }

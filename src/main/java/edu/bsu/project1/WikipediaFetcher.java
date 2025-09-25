@@ -1,8 +1,6 @@
-// src/main/java/edu/bsu/project1/WikipediaFetcher.java
 package edu.bsu.project1;
 
 import java.io.InputStream;
-import java.net.URI;
 import java.net.URLEncoder;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;

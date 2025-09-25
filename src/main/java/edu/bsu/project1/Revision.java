@@ -1,4 +1,3 @@
-// src/main/java/edu/bsu/project1/Revision.java
 package edu.bsu.project1;
 
 public class Revision {

@@ -1,4 +1,3 @@
-// src/main/java/edu/bsu/project1/WikipediaRevisionReporter.java
 package edu.bsu.project1;
 
 import com.jayway.jsonpath.JsonPath;
@@ -27,15 +26,13 @@ public class WikipediaRevisionReporter {
             WikipediaFetcher fetcher = new WikipediaFetcher();
             InputStream jsonStream = fetcher.fetch(article);
 
-            // keep a copy of the JSON (so we can check + parse with the same data)
             byte[] jsonBytes = readAll(jsonStream);
 
-            // check if page is missing
-            // when page missing
+
             if (isMissingPage(jsonBytes)) {
                 String msg = "Error: No Wikipedia page found for '" + article + "'";
-                System.err.println(msg);  // spec-correct
-                System.out.println(msg);  // makes it visible in Gradle console
+                System.err.println(msg);
+                System.out.println(msg);
                 System.exit(1);
             }
 
@@ -58,7 +55,7 @@ public class WikipediaRevisionReporter {
         String json = new String(jsonBytes, StandardCharsets.UTF_8);
         ReadContext ctx = JsonPath.parse(json);
         try {
-            // if any page object has "missing", the page does not exist
+
             List<Object> missing = ctx.read("$.query.pages.*.missing");
             return !missing.isEmpty();
         } catch (Exception e) {

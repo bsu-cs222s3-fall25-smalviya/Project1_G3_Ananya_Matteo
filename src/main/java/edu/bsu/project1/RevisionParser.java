@@ -1,4 +1,3 @@
-// src/main/java/edu/bsu/project1/RevisionParser.java
 package edu.bsu.project1;
 
 import com.jayway.jsonpath.JsonPath;
