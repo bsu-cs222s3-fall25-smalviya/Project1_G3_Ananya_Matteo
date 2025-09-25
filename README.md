@@ -1,11 +1,17 @@
 # Project1_G3
 
+This project allows the user to input a Wikipedia article name, and retrieves the 15 most recent edits on the Wikipedia page.
+It demonstrates how to:
+- Connect to an external web API
+- Parse JSON data into Java objects
+- Format and display revision history in the console
 
+## Authors
+- Ananya
+- Matteo
 
-Ananya from readme.md directly
+This project uses **Gradle** as the build tool.
 
-Matteo Beltrami from readme.md directly
+Main program = ./gradlew run --args="input any wiki page name here"
 
-test 1
-
-Added by: Ananya
+Test = ./gradlew test
