@@ -15,3 +15,5 @@ This project uses **Gradle** as the build tool.
 Main program = ./gradlew run --args="input any wiki page name here"
 
 Test = ./gradlew test
+
+GUI = ./gradlew runGui
