@@ -42,7 +42,7 @@ public class WikipediaGuiApp extends Application {
         stage.show();
     }
 
-    private void fetchArticle() {
+    void fetchArticle() {
         String article = articleField.getText().trim();
         if (article.isEmpty()) {
             alert("Missing Article", "Please enter an article name.");
@@ -94,31 +94,28 @@ public class WikipediaGuiApp extends Application {
         new Thread(task).start();
     }
 
-    private void setBusy(boolean busy) {
+    void setBusy(boolean busy) {
         fetchButton.setDisable(busy);
         articleField.setDisable(busy);
     }
 
-    private static byte[] readAll(InputStream in) throws Exception {
+    static byte[] readAll(InputStream in) throws Exception {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         in.transferTo(bos);
         return bos.toByteArray();
     }
 
-    private static boolean isMissingPage(byte[] json) {
+    static boolean isMissingPage(byte[] json) {
         try {
-            return !JsonPath.parse(new String(json, StandardCharsets.UTF_8))
-                    .read("$.query.pages.*.missing", List.class)
-                    .isEmpty();
+            return !JsonPath.parse(new String(json, StandardCharsets.UTF_8)).read("$.query.pages.*.missing", List.class).isEmpty();
         } catch (Exception e) {
             return false;
         }
     }
 
-    private static String findRedirect(byte[] json) {
+    static String findRedirect(byte[] json) {
         try {
-            List<?> arr = JsonPath.parse(new String(json, StandardCharsets.UTF_8))
-                    .read("$.query.redirects[0:1]");
+            List<?> arr = JsonPath.parse(new String(json, StandardCharsets.UTF_8)).read("$.query.redirects[0:1]");
             if (arr == null || arr.isEmpty()) return null;
             return ((java.util.Map<?, ?>) arr.get(0)).get("to").toString();
         } catch (Exception e) {
@@ -126,7 +123,7 @@ public class WikipediaGuiApp extends Application {
         }
     }
 
-    private void alert(String title, String msg) {
+    void alert(String title, String msg) {
         Alert a = new Alert(Alert.AlertType.INFORMATION);
         a.setTitle(title);
         a.setHeaderText(null);

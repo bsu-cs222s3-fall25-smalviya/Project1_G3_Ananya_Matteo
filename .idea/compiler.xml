@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel>
+    <bytecodeTargetLevel target="17">
       <module name="Project1_G3_Ananya_Matteo" target="24" />
       <module name="Project1_G3_Ananya_Matteo.main" target="24" />
       <module name="Project1_G3_Ananya_Matteo.test" target="24" />
